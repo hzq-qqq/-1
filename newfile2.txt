@@ -1,2 +1,3 @@
 newfile2
-newfile   
+newfile    
+小红修改的部分
