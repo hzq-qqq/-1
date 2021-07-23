@@ -25,11 +25,10 @@ public class CustomerServlet extends HttpServlet {
 //        这里使用的是new 的方式来创建一个service 对象 ， ——  耦合性比较高
         customerService = new CustomerService();
     }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Customer> customerList = customerService.getCustomerList();
         req.setAttribute("customerList", customerList);
         req.getRequestDispatcher("/WEB-INF/view/customer.jsp").forward(req, resp);
     }
-}
+    }
