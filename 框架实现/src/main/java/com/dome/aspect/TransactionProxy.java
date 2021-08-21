@@ -41,6 +41,7 @@ public class TransactionProxy implements Proxy {
             } catch (Exception e) {
 
                 logger.error("rollback transaction");
+                DatabaseHelper.rollbackTransaction();
                 throw  e;
             }finally {
                 FLAG_HOLDER.remove();

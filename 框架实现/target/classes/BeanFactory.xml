@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--可以看到这里使用的是XSD的XML验证模式-->
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     
     <bean id="MyTestBean" class="com.dome.spring.springBean.MyTestBean"/>
+
 </beans>
