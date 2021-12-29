@@ -30,3 +30,28 @@ func (e *ExLock) TryLock() bool {
 	newSta := old | mutexLocked
 	return atomic.CompareAndSwapInt32((*int32)(unsafe.Pointer(&e.Mutex)), old, newSta) //尝试在竞争下加锁（因为当先锁处为加锁状态）
 }
+
+//获取等待锁的goroutine数量
+func (e *ExLock) GetWaiterNums() int {
+	status := atomic.LoadInt32((*int32)(unsafe.Pointer(&e.Mutex)))
+	v := status >> mutexWaiterShift
+	return int(v)
+}
+
+// 锁是否被持有
+func (m *ExLock) IsLocked() bool {
+	state := atomic.LoadInt32((*int32)(unsafe.Pointer(&m.Mutex)))
+	return state&mutexLocked == mutexLocked
+}
+
+// 是否有等待者被唤醒
+func (m *ExLock) IsWoken() bool {
+	state := atomic.LoadInt32((*int32)(unsafe.Pointer(&m.Mutex)))
+	return state&mutexWoken == mutexWoken
+}
+
+// 锁是否处于饥饿状态
+func (m *ExLock) IsStarving() bool {
+	state := atomic.LoadInt32((*int32)(unsafe.Pointer(&m.Mutex)))
+	return state&mutexStarving == mutexStarving
+}
